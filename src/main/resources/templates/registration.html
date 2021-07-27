@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <title>Registration Page</title>
+</head>
+<body>
+
+<h2>Registration Page</h2>
+
+<form th:action="@{/registration}" method="post">
+    username:<input type = "text" name = "username"/>
+    password:<input type = "text" name = "password"/>
+    email:<input type = "text" name = "email"/>
+    <input type="submit" value="registration">
+</form>
+
+</body>
+</html>
