@@ -6,16 +6,74 @@
           href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
           integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
           crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('#select_all').on('click',function(){
+                if(this.checked){
+                    $('.checkbox').each(function(){
+                        this.checked = true;
+                    });
+                }else{
+                    $('.checkbox').each(function(){
+                        this.checked = false;
+                    });
+                }
+            });
 
-</head>
+            $('.checkbox').on('click',function(){
+                if($('.checkbox:checked').length == $('.checkbox').length){
+                    $('#select_all').prop('checked',true);
+                }else{
+                    $('#select_all').prop('checked',false);
+                }
+            });
+        });
+    </script>
+
     <title>For User</title>
 </head>
 <body>
-
-<form th:action="@{/logout}" method="post">
-    <input type="submit" value="logout">
-</form>
-<h2>For User Page</h2>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" >Menu</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/foruser}">Users</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/login}">Login</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/registration}">Registration</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link " th:href="@{/logout}">Logout</a>
+            </li>
+            <li class="nav-item">
+                <!--<a class="nav-link " th:href="@{/delete}">Delete</a>-->
+                <form th:action="@{/block}" id="check1" method="post">
+                    <button>delete</button>
+                </form>
+            </li>
+            <li class="nav-item">
+                <!--<a class="nav-link " th:href="@{/block}">Block</a>-->
+                <form th:action="@{/block}" id="check2" method="post">
+                    <button>block</button>
+                </form>
+            </li>
+            <li class="nav-item">
+               <!-- <a class="nav-link " th:href="@{/unblock}">Unblock</a>-->
+                <form th:action="@{/unblock}" id="check3" method="post">
+                    <button>unblock</button>
+                </form>
+            </li>
+        </ul>
+    </div>
+</nav>
 <div th:switch="${users}">
     <h2 th:case="null">No users found!</h2>
     <div th:case="*">
@@ -23,33 +81,33 @@
         <table border="1" class = "table table-striped table-responsive-md">
             <thead>
             <tr>
+                <!--<th class="text-center"><input type="checkbox" id="select_all" /></th>-->
+                <th>delete</th>
+                <th>block</th>
+                <th>unblock</th>
                 <th>id</th>
                 <th>username</th>
                 <th>email</th>
                 <th>date registration</th>
                 <th>latest login date</th>
                 <th>status</th>
-                <th>delete</th>
-                <th>block</th>
-                <th>unblock</th>
             </tr>
             </thead>
             <tbody>
             <tr th:each="user : ${users}">
+                <td align="center"><input type="checkbox" th:form="check1"  class="checkbox"  th:name="idChecked" th:value="${user.id} "/></td>
+                <td align="center"><input type="checkbox" th:form="check2"  class="checkbox"  th:name="idChecked" th:value="${user.id} "/></td>
+                <td align="center"><input type="checkbox" th:form="check3"  class="checkbox"  th:name="idChecked" th:value="${user.id} "/></td>
                 <td th:text="${user.id}"></td>
                 <td th:text="${user.username}"></td>
                 <td th:text="${user.email}"></td>
                 <td th:text="${user.createdDate}"></td>
                 <td th:text="${user.lastDate}"></td>
                 <td th:text="${user.status}"></td>
-                <td><a th:href="@{user-delete/{id}(id=${user.id})}">delete</a></td>
-                <td><a th:href="@{user-block/{id}(id=${user.id})}">block</a></td>
-                <td><a th:href="@{user-unblock/{id}(id=${user.id})}">unblock</a></td>
             </tr>
             </tbody>
         </table>
     </div>
 </div>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </body>
 </html>
