@@ -3,19 +3,22 @@ package com.platonov.webapp.domain;
 
 import lombok.Data;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.ModelAttribute;
 
-import java.sql.Timestamp;
-import java.time.LocalDate;
-import java.util.Calendar;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import java.util.Collections;
-import java.util.Date;
 
 
 @Data
 public class RegistrationForm {
-
+    @NotBlank (message = "Name should not be empty")
     private String username;
+    @NotEmpty(message = "Password should not be empty")
     private String password;
+    @NotEmpty(message = "Email should not be empty")
+    @Email(message = "Email should be valid")
     private String email;
 
     public  User toUser(PasswordEncoder passwordEncoder){
