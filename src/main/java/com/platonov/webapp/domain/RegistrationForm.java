@@ -27,6 +27,8 @@ public class RegistrationForm {
         user.setPassword(passwordEncoder.encode(password));
         user.setUsername(username);
         user.setStatus(Collections.singleton(Status.UNBLOCK));
+        user.setStatusLogin("Unblock");
+        user.setIsAccountNonLocked(true);
         return user;
     }
 

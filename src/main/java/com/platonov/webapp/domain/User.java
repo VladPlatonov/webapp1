@@ -1,5 +1,6 @@
 package com.platonov.webapp.domain;
 
+import com.platonov.webapp.validate.Block;
 import com.sun.istack.NotNull;
 import lombok.Data;
 import org.apache.tomcat.jni.Local;
@@ -8,6 +9,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.validation.annotation.Validated;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -29,11 +31,8 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @NotBlank(message = "Name should not be empty")
     private String username;
     private String password;
-    @NotEmpty(message = "Email should not be empty")
-    @Email(message = "Email should be valid")
     @Column(name = "email",unique = true)
     private String email;
 
@@ -41,7 +40,9 @@ public class User implements UserDetails {
     @ElementCollection(targetClass =Status.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "user_status", joinColumns = @JoinColumn(name = "user_id"))
     private Set<Status> status;
-
+    private String statusLogin;
+    @Column(name="is_account_non_locked")
+    private Boolean isAccountNonLocked;
     @CreatedDate
     @NotNull
     @Column(name = "created_date", nullable = false, updatable = false)
@@ -58,12 +59,13 @@ public class User implements UserDetails {
 
     @Override
     public boolean isAccountNonExpired() {
+
         return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return true;
+        return isAccountNonLocked;
     }
 
     @Override

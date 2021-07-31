@@ -23,7 +23,10 @@ public class RegistrationController {
 
     @Autowired
     private UserRepo userRepo;
-
+    @ModelAttribute("form")
+    public RegistrationForm registrationForm() {
+        return new RegistrationForm();
+    }
     @GetMapping
     public String registration(){
         return "registration";

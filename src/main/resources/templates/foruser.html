@@ -55,7 +55,7 @@
             </li>
             <li class="nav-item">
                 <!--<a class="nav-link " th:href="@{/delete}">Delete</a>-->
-                <form th:action="@{/block}" id="check1" method="post">
+                <form th:action="@{/delete}" id="check1" method="post">
                     <button>delete</button>
                 </form>
             </li>
@@ -95,15 +95,15 @@
             </thead>
             <tbody>
             <tr th:each="user : ${users}">
-                <td align="center"><input type="checkbox" th:form="check1"  class="checkbox"  th:name="idChecked" th:value="${user.id} "/></td>
-                <td align="center"><input type="checkbox" th:form="check2"  class="checkbox"  th:name="idChecked" th:value="${user.id} "/></td>
-                <td align="center"><input type="checkbox" th:form="check3"  class="checkbox"  th:name="idChecked" th:value="${user.id} "/></td>
+                <td align="center"><input type="checkbox" form="check1"  class="checkbox"  th:name="idChecked" th:value="${user.id} "/></td>
+                <td align="center"><input type="checkbox" form="check2"  class="checkbox"  th:name="idChecked" th:value="${user.id} "/></td>
+                <td align="center"><input type="checkbox" form="check3"  class="checkbox"  th:name="idChecked" th:value="${user.id} "/></td>
                 <td th:text="${user.id}"></td>
                 <td th:text="${user.username}"></td>
                 <td th:text="${user.email}"></td>
                 <td th:text="${user.createdDate}"></td>
                 <td th:text="${user.lastDate}"></td>
-                <td th:text="${user.status}"></td>
+                <td th:text="${user.statusLogin}"></td>
             </tr>
             </tbody>
         </table>

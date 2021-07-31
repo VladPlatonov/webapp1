@@ -1,5 +1,6 @@
 package com.platonov.webapp.controller;
 
+import com.platonov.webapp.domain.RegistrationForm;
 import com.platonov.webapp.domain.Status;
 import com.platonov.webapp.domain.User;
 import com.platonov.webapp.repo.UserRepo;
@@ -10,10 +11,13 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -26,7 +30,7 @@ public class HomeController {
 
 
     @GetMapping
-    public String index(@AuthenticationPrincipal User user){
+    public String index(){
         return "redirect:/foruser";
     }
 
@@ -34,6 +38,7 @@ public class HomeController {
     public String login(){
         return "login";
     }
+
     @GetMapping("/foruser")
     public  String forUser(Model model) {
         model.addAttribute("users",userRepo.findAll());
@@ -54,6 +59,8 @@ public class HomeController {
                 User user = userRepo.getById(id);
                 user.getStatus().clear();
                 user.getStatus().add(Status.BLOCK);
+                user.setStatusLogin("Block");
+                user.setIsAccountNonLocked(false);
                 userRepo.save(user);
             }
         return "redirect:/foruser";
@@ -65,16 +72,10 @@ public class HomeController {
                 User user = userRepo.getById(id);
                 user.getStatus().clear();
                 user.getStatus().add(Status.UNBLOCK);
+                user.setStatusLogin("Unblock");
+                user.setIsAccountNonLocked(true);
                 userRepo.save(user);
             }
-        return "redirect:/foruser";
-    }
-    @GetMapping("user-unblock/{id}")
-    public String unBanUser(@PathVariable("id") Long id){
-        User user = userRepo.getById(id);
-        user.getStatus().clear();
-        user.getStatus().add(Status.UNBLOCK);
-        userRepo.save(user);
         return "redirect:/foruser";
     }
     @RequestMapping(value="/logout", method = RequestMethod.GET)

@@ -6,7 +6,21 @@
     <title>Login</title>
 </head>
 <body>
-
+<style>
+    input[type="text"],[type="password"],[type="email"] {
+        font-size: 14px;
+        height: 36px;
+        width: 500px;
+    }
+    .block {
+        width: 250px;
+        height: 250px;
+        position: absolute;
+        top: 40%;
+        left: 45%;
+        margin: -125px 0 0 -125px;
+    }
+</style>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" >Menu</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -30,13 +44,24 @@
     </div>
 </nav>
 
-<h2>Login Page</h2>
 
+<div class="block">
+    <h2>Login</h2>
     <form th:action="@{/login}" method="post">
-        username:<input type = "text" name = "username"/>
-        password:<input type = "text" name = "password"/>
-        <input type="submit" value="login">
+        <div class="form-group">
+            <label for="formGroupInput1">Username</label>
+            <input type = "text" class="form-control" id="formGroupInput1" placeholder="username"  name = "username"/>
+        </div>
+        <div class="form-group">
+            <label for="formGroupInput2">Password</label>
+            <input type = "password" class="form-control" id="formGroupInput2" placeholder="password"  name = "password"/>
+        </div>
+        <div class="form-group" style="margin-top: 5%">
+            <input class="btn btn-primary"  type="submit" value="submit">
+        </div>
+
     </form>
+</div>
 
 
 </body>
