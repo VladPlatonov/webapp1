@@ -1,6 +1,5 @@
 package com.platonov.webapp.domain;
 
-import com.platonov.webapp.validate.Block;
 import com.sun.istack.NotNull;
 import lombok.Data;
 import org.apache.tomcat.jni.Local;

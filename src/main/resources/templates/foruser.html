@@ -54,21 +54,10 @@
                 <a class="nav-link " th:href="@{/logout}">Logout</a>
             </li>
             <li class="nav-item">
-                <!--<a class="nav-link " th:href="@{/delete}">Delete</a>-->
-                <form th:action="@{/delete}" id="check1" method="post">
-                    <button>delete</button>
-                </form>
-            </li>
-            <li class="nav-item">
-                <!--<a class="nav-link " th:href="@{/block}">Block</a>-->
-                <form th:action="@{/block}" id="check2" method="post">
-                    <button>block</button>
-                </form>
-            </li>
-            <li class="nav-item">
-               <!-- <a class="nav-link " th:href="@{/unblock}">Unblock</a>-->
-                <form th:action="@{/unblock}" id="check3" method="post">
-                    <button>unblock</button>
+                <form th:action="@{/edit}" id="check" method="post">
+                    <button type="submit" name="action" value="block" class="btn">Block</button>
+                    <button type="submit" name="action" value="unblock" class="btn">Unblock</button>
+                    <button type="submit" name="action" value="delete" class="btn">Delete</button>
                 </form>
             </li>
         </ul>
@@ -77,14 +66,10 @@
 <div th:switch="${users}">
     <h2 th:case="null">No users found!</h2>
     <div th:case="*">
-        <h2>Users</h2>
-        <table border="1" class = "table table-striped table-responsive-md">
+        <table border="1" class = "table table-hover">
             <thead>
             <tr>
-                <!--<th class="text-center"><input type="checkbox" id="select_all" /></th>-->
-                <th>delete</th>
-                <th>block</th>
-                <th>unblock</th>
+                <th class="text-center"><input type="checkbox" id="select_all" /></th>
                 <th>id</th>
                 <th>username</th>
                 <th>email</th>
@@ -95,9 +80,7 @@
             </thead>
             <tbody>
             <tr th:each="user : ${users}">
-                <td align="center"><input type="checkbox" form="check1"  class="checkbox"  th:name="idChecked" th:value="${user.id} "/></td>
-                <td align="center"><input type="checkbox" form="check2"  class="checkbox"  th:name="idChecked" th:value="${user.id} "/></td>
-                <td align="center"><input type="checkbox" form="check3"  class="checkbox"  th:name="idChecked" th:value="${user.id} "/></td>
+                <td align="center"><input type="checkbox" form="check"  class="checkbox"  th:name="idChecked" th:value="${user.id} "/></td>
                 <td th:text="${user.id}"></td>
                 <td th:text="${user.username}"></td>
                 <td th:text="${user.email}"></td>
